@@ -4,18 +4,19 @@
 
 ## Setup
 
-- `bundle install`
-- `cd client/ && npm install && cd ..`
-- `rails db:create && rails db:schema:load`
-- `rails start`
-
-### Postgres
+### Postgres Installation
 This application requires a postgres database for development. If you don't have pg installed
 but do have docker, you can create a sufficient postgres server with the command:
 
 ```
 docker run -p 5432:5432 --name default-port-postgres -e POSTGRES_PASSWORD=badsecret -e POSTGRES_HOST_AUTH_METHOD=trust -d postgres
 ```
+
+### Setup Commands
+- `bundle install`
+- `cd client/ && npm install && cd ..`
+- `rails db:create && rails db:schema:load`
+- `rails start`
 
 ## Users
 Users are unauthenticated, and there is no difference between an admin and normal user. This is for simplicity of this exercise.
