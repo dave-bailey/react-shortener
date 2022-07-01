@@ -1,10 +1,12 @@
 import { hot } from "react-hot-loader/root";
 import React, { useState, useCallback } from "react";
 import axios from "axios";
-import { Container, Label, Input, Button } from "reactstrap";
+import { Container } from "reactstrap";
 import ErrorDisplay from "./Components/ErrorDisplay";
 import LoadingDisplay from "./Components/LoadingDisplay";
 import AccessEvents from "./Components/AccessEvents.jsx";
+import ShortLinkList from "./Components/ShortLinkList";
+import CreateNewLink from "./Components/CreateNewLink";
 
 const App = () => {
   const [url, setUrl] = useState("");
@@ -43,16 +45,14 @@ const App = () => {
   }, []);
 
   return (
-    <Container>
+    <Container style={{ width: "90%" }}>
       {displayError && <ErrorDisplay />}
 
       {loading ? (
         <LoadingDisplay />
       ) : (
         <>
-          <Label>Link Name</Label>
-          <Input value={url} onChange={(e) => setUrl(e.target.value)} />
-          <Button onClick={createLink}>Create Link</Button>
+          <CreateNewLink url={url} setUrl={setUrl} createLink={createLink} />
           {detailLink ? (
             <AccessEvents
               accessEvents={accessEvents}
@@ -60,31 +60,10 @@ const App = () => {
               setDisplayError={setDisplayError}
             />
           ) : (
-            <>
-              <div>Recent Links:</div>
-              <ul>
-                {shortLinks.map((l) => (
-                  <li>
-                    {`${l.long_url} - `}
-                    <a
-                      href={l.short_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {l.short_url}
-                    </a>
-                    {" - "}
-                    <Button
-                      onClick={() => getAccessEvents(l)}
-                      size="sm"
-                      outline
-                    >
-                      Show Log
-                    </Button>
-                  </li>
-                ))}
-              </ul>
-            </>
+            <ShortLinkList
+              shortLinks={shortLinks}
+              getAccessEvents={getAccessEvents}
+            />
           )}
         </>
       )}
