@@ -4,6 +4,7 @@ import axios from "axios";
 import { Container, Label, Input, Button } from "reactstrap";
 import ErrorDisplay from "./Components/ErrorDisplay";
 import LoadingDisplay from "./Components/LoadingDisplay";
+import AccessEvents from "./Components/AccessEvents.jsx";
 
 const App = () => {
   const [url, setUrl] = useState("");
@@ -53,19 +54,11 @@ const App = () => {
           <Input value={url} onChange={(e) => setUrl(e.target.value)} />
           <Button onClick={createLink}>Create Link</Button>
           {detailLink ? (
-            <div>
-              <Button
-                onClick={() => {
-                  setDetailLink(null);
-                  setDisplayError(false);
-                }}
-                color="warning"
-              >
-                Back
-              </Button>
-              <div>Access Links:</div>
-              <div>{JSON.stringify(accessEvents)}</div>
-            </div>
+            <AccessEvents
+              accessEvents={accessEvents}
+              setDetailLink={setDetailLink}
+              setDisplayError={setDisplayError}
+            />
           ) : (
             <>
               <div>Recent Links:</div>
