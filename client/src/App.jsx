@@ -5,6 +5,7 @@ import { Container, Label, Input, Button } from "reactstrap";
 import ErrorDisplay from "./Components/ErrorDisplay";
 import LoadingDisplay from "./Components/LoadingDisplay";
 import AccessEvents from "./Components/AccessEvents.jsx";
+import ShortLinkList from "./Components/ShortLinkList";
 
 const App = () => {
   const [url, setUrl] = useState("");
@@ -60,31 +61,10 @@ const App = () => {
               setDisplayError={setDisplayError}
             />
           ) : (
-            <>
-              <div>Recent Links:</div>
-              <ul>
-                {shortLinks.map((l) => (
-                  <li>
-                    {`${l.long_url} - `}
-                    <a
-                      href={l.short_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {l.short_url}
-                    </a>
-                    {" - "}
-                    <Button
-                      onClick={() => getAccessEvents(l)}
-                      size="sm"
-                      outline
-                    >
-                      Show Log
-                    </Button>
-                  </li>
-                ))}
-              </ul>
-            </>
+            <ShortLinkList
+              shortLinks={shortLinks}
+              getAccessEvents={getAccessEvents}
+            />
           )}
         </>
       )}
