@@ -1,11 +1,12 @@
 import { hot } from "react-hot-loader/root";
 import React, { useState, useCallback } from "react";
 import axios from "axios";
-import { Container, Label, Input, Button } from "reactstrap";
+import { Container } from "reactstrap";
 import ErrorDisplay from "./Components/ErrorDisplay";
 import LoadingDisplay from "./Components/LoadingDisplay";
 import AccessEvents from "./Components/AccessEvents.jsx";
 import ShortLinkList from "./Components/ShortLinkList";
+import CreateNewLink from "./Components/CreateNewLink";
 
 const App = () => {
   const [url, setUrl] = useState("");
@@ -44,16 +45,14 @@ const App = () => {
   }, []);
 
   return (
-    <Container>
+    <Container style={{ width: "90%" }}>
       {displayError && <ErrorDisplay />}
 
       {loading ? (
         <LoadingDisplay />
       ) : (
         <>
-          <Label>Link Name</Label>
-          <Input value={url} onChange={(e) => setUrl(e.target.value)} />
-          <Button onClick={createLink}>Create Link</Button>
+          <CreateNewLink url={url} setUrl={setUrl} createLink={createLink} />
           {detailLink ? (
             <AccessEvents
               accessEvents={accessEvents}
